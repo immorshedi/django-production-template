@@ -1,0 +1,10 @@
+build-base-image:
+  stage: build
+  script:
+    - docker build -t base-image -f docker/base/Dockerfile .
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - docker/base/Dockerfile
+        - pyproject.toml
+        - uv.lock
