@@ -1,8 +1,8 @@
 # django-production-template
 
-A production-oriented Django template built incrementally with modern Python tooling and clear architectural decisions.
+A production-oriented Django template built incrementally with modern Python tooling and explicit architectural decisions.
 
-## Current focus
+## Current Scope
 
 - Django
 - uv
@@ -19,7 +19,7 @@ A production-oriented Django template built incrementally with modern Python too
 - Clear environment-specific settings
 - CI/CD-ready foundation
 
-## Architecture decisions
+## Architecture Decisions
 
 This repository documents important technical decisions as ADRs:
 
@@ -27,7 +27,7 @@ This repository documents important technical decisions as ADRs:
 - [0002 - Split Django settings into environment-specific modules](docs/adr/0002-split-django-settings.md)
 - [0003 - Separate Docker images into base and app layers](docs/adr/0003-separate-base-and-app-docker-images.md)
 
-## Project structure
+## Project Structure
 
 ```text
 .
@@ -56,8 +56,6 @@ This repository documents important technical decisions as ADRs:
 │       └── 0003-separate-base-and-app-docker-images.md
 ├── pyproject.toml
 └── uv.lock
-````
-
 ## Settings Strategy
 
 The project uses modular Django settings:
@@ -69,8 +67,6 @@ The project uses modular Django settings:
 
 This keeps environment-specific configuration explicit, isolated, and easier to maintain.
 
----
-
 ## Docker Strategy
 
 The container setup is split into two responsibilities:
@@ -80,7 +76,7 @@ The container setup is split into two responsibilities:
 Responsible for:
 
 - Python runtime
-- System dependencies
+- system dependencies
 - `uv`
 - Python package installation
 
@@ -88,20 +84,25 @@ Responsible for:
 
 Responsible for:
 
-- Project source code
-- Application startup commands
+- project source code
+- application startup commands
 
 This approach improves Docker layer caching and avoids reinstalling dependencies when only application code changes.
 
----
+## CI/CD Compatibility
+
+This template is designed to support both:
+
+- GitHub Actions
+- GitLab CI
+
+The goal is to keep the repository CI/CD-agnostic and reusable across different platforms and team setups.
 
 ## Why This Repository Exists
 
 The goal of this repository is not just to start a Django project, but to provide a reusable backend template with production-minded defaults and documented engineering decisions.
 
 Each important step is introduced incrementally and documented to make the reasoning behind architectural choices clear.
-
----
 
 ## Next Steps
 
@@ -111,6 +112,7 @@ Planned additions include:
 - [ ] PostgreSQL
 - [ ] Redis
 - [ ] CI/CD pipelines
-- [ ] Automated testing
-- [ ] Linting and formatting
-- [ ] Production application server setup 
+- [ ] environment variable strategy
+- [ ] automated testing
+- [ ] linting and formatting
+- [ ] production application server setup
